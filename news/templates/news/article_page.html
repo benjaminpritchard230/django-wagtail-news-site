@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+
+
+{% endblock extra_css %}
+
+{% block content %}
+{% image page.main_image fill-250x250 as img %}
+<img src="{{img.url}}" alt="{{img.alt}}">
+<h1>{{page.headline}}</h1>
+<h3>{{page.first_published_at}}</h3>
+<p>{{page.article_body}}</p>
+
+{% endblock content %}
