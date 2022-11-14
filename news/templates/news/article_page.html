@@ -10,9 +10,20 @@
 
 {% block content %}
 {% image page.main_image fill-250x250 as img %}
-<img src="{{img.url}}" alt="{{img.alt}}">
-<h1>{{page.headline}}</h1>
-<h3>{{page.first_published_at}}</h3>
-<p>{{page.article_body}}</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <img src="{{img.url}}" alt="{{img.alt}}">
+            <h1>{{page.headline}}</h1>
+            <h3>{{page.first_published_at}}</h3>
+            <p>{{page.article_body}}</p>
+        </div>
+    </div>
+</div>
+
+
+
+
 
 {% endblock content %}
