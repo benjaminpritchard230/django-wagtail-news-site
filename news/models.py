@@ -107,5 +107,5 @@ class ArticleAuthorOrderable(Orderable):
         on_delete=models.CASCADE,
     )
     panels = [
-        SnippetChooserPanel("author"),
+        FieldPanel("author"),
     ]
