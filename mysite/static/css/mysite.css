@@ -1,0 +1,13 @@
+p[class="article"] {
+  white-space: pre-line;
+  max-width: 976px;
+}
+
+p[class="subtitle"] {
+  font-weight: bold;
+  max-width: 976px;
+}
+
+h1[class="article"] {
+  max-width: 976px;
+}

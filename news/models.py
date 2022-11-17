@@ -24,6 +24,9 @@ from wagtail.models import Page
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.snippets.models import register_snippet
 
+from streams import blocks
+from wagtail.images.blocks import ImageChooserBlock
+
 
 class NewsPage(Page):
     banner_title = models.CharField(max_length=100, default="News page")
@@ -33,29 +36,36 @@ class NewsPage(Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    introduction = models.TextField(blank=True)
+    content = StreamField(
+        [
+            ("cards", blocks.CardBlock()),
+        ], null=True, blank=True
+    )
 
     content_panels = Page.content_panels + [
-        FieldPanel("banner_title"),
-        FieldPanel("introduction"),
-        FieldPanel("banner_image"),
+        FieldPanel("content"),
     ]
 
 
 class ArticlePage(Page):
     headline = models.CharField(max_length=100, default="Headline")
+    subtitle = models.CharField(max_length=1000, default="")
     main_image = models.ForeignKey(
         "wagtailimages.image",
         null=True, blank="False",
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    article_body = models.TextField(blank=True)
+    content = StreamField([
+        ("full_richtext", blocks.RichTextBlock()),
+        ("image", ImageChooserBlock()),
+    ], null=True, blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel("headline"),
+        FieldPanel("subtitle"),
         FieldPanel("main_image"),
-        FieldPanel("article_body"),
+        FieldPanel("content"),
         MultiFieldPanel([
             InlinePanel("article_authors", label="Author",
                         min_num=1, max_num=4)

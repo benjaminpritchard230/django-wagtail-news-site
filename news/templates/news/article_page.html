@@ -10,12 +10,12 @@
 
 {% block content %}
 {% image page.main_image original as img %}
-
+{% load wagtailcore_tags %}
 <div class="container">
     <div class="row">
-        <div class="col-12">
-            <img src="{{img.url}}" alt="{{img.alt}}">
-            <h1>{{page.headline}}</h1>
+        <div class="col-12" style="max-width: 976px;">
+            <img src="{{img.url}}" class="img-fluid" alt="{{img.alt}}">
+            <h1 class="article">{{page.headline}}</h1>
             <h3>{{page.first_published_at}}</h3>
             <ul>
                 {% for iter in self.article_authors.all %}
@@ -26,7 +26,12 @@
                 </li>
                 {% endfor %}
             </ul>
-            <p>{{page.article_body}}</p>
+            <p class="subtitle">{{page.subtitle}}</p>
+            <article>
+                {% for block in page.content %}
+                <section>{% include_block block %}</section>
+                {% endfor %}
+            </article>
         </div>
     </div>
 </div>
