@@ -27,6 +27,8 @@ from wagtail.snippets.models import register_snippet
 from streams import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
+from wagtail.api import APIField
+
 
 class NewsPage(Page):
     banner_title = models.CharField(max_length=100, default="News page")
@@ -61,6 +63,12 @@ class ArticlePage(Page):
         ("image", ImageChooserBlock()),
     ], null=True, blank=True)
 
+    api_fields = [
+        APIField("headline"),
+        APIField("subtitle"),
+        APIField("main_image"),
+        APIField("content"),
+    ]
     content_panels = Page.content_panels + [
         FieldPanel("headline"),
         FieldPanel("subtitle"),
