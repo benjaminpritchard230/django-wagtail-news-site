@@ -68,6 +68,7 @@ class ArticlePage(Page):
     content = StreamField([
         ("full_richtext", blocks.RichTextBlock()),
         ("image", ImageChooserBlock()),
+        ("cta", blocks.CTABlock()),
     ], null=True, blank=True)
 
     tags = ClusterTaggableManager(through=ArticlePageTags)
