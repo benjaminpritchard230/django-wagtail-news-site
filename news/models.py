@@ -28,6 +28,8 @@ from streams import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
 from wagtail.api import APIField
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
 
 
 class NewsPage(Page):
@@ -49,6 +51,11 @@ class NewsPage(Page):
     ]
 
 
+class ArticlePageTags(TaggedItemBase):
+    content_object = ParentalKey(
+        "ArticlePage", related_name="tagged_items", on_delete=models.CASCADE)
+
+
 class ArticlePage(Page):
     headline = models.CharField(max_length=100, default="Headline")
     subtitle = models.CharField(max_length=1000, default="")
@@ -63,6 +70,8 @@ class ArticlePage(Page):
         ("image", ImageChooserBlock()),
     ], null=True, blank=True)
 
+    tags = ClusterTaggableManager(through=ArticlePageTags)
+
     api_fields = [
         APIField("headline"),
         APIField("subtitle"),
@@ -71,6 +80,7 @@ class ArticlePage(Page):
     ]
     content_panels = Page.content_panels + [
         FieldPanel("headline"),
+        FieldPanel("tags"),
         FieldPanel("subtitle"),
         FieldPanel("main_image"),
         FieldPanel("content"),

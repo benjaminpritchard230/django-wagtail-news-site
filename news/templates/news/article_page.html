@@ -32,6 +32,10 @@
                 <section>{% include_block block %}</section>
                 {% endfor %}
             </article>
+            <h3>Tags:</h3>
+            {% for tag in page.tags.all %}
+            <a href="/news-page/{{ tag.slug }}/">{{ tag }}</a><br />
+            {% endfor %}
         </div>
     </div>
 </div>
